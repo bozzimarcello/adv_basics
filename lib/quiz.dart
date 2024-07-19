@@ -41,7 +41,6 @@ class _QuizAppState extends State<QuizApp> {
         activeScreen = ResultsScreen(
           choosenAnswers: selectedAnswers,
         );
-        selectedAnswers.clear();
       });
     }
   }
