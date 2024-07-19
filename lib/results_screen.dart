@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({super.key});
+  const ResultsScreen({
+    super.key,
+    required this.choosenAnswers,
+  });
+
+  final List<String> choosenAnswers;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +23,9 @@ class ResultsScreen extends StatelessWidget {
             ),
             const Text('List of answers and questions ...'),
             TextButton(
-              onPressed: () {
-              },
+              onPressed: () {},
               child: const Text('Restart Quiz'),
             ),
-            
           ],
         ),
       ),
