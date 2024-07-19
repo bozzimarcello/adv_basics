@@ -21,6 +21,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   var currentQuestionIndex = 0;
 
   void answerQuestion(String selectedAnswer) {
+    // the widget property is used to access the onSelectAnswer function
+    // that was passed to the QuestionsScreen statefull widget
     widget.onSelectAnswer(selectedAnswer);
     setState(() {
       currentQuestionIndex++;
@@ -51,9 +53,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             const SizedBox(
               height: 30,
             ),
+            // the ... operator is used to open up a list of lists
+            // spreading the list of widgets
             ...currentQuestion.getShuffledAnswers().map((answer) {
               return AnswerButton(
                 answerText: answer,
+                // the anonymous function is needed bacause onTap cannot accept parameters
+                // but we want to pass the answer to the answerQuestion method
+                // answer is visible in onTap because it belongs to the same widget
                 onTap: () {
                   answerQuestion(answer);
                 },

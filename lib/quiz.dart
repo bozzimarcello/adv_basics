@@ -14,6 +14,8 @@ class QuizApp extends StatefulWidget {
 
 class _QuizAppState extends State<QuizApp> {
   Widget? activeScreen;
+  // the selected answers are stored in a list here
+  // so that they can be managed when the quiz is finished
   final List<String> selectedAnswers = [];
 
   @override
