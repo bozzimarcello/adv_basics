@@ -17,13 +17,16 @@ class QuestionsSummary extends StatelessWidget {
             // the as operator is used to cast the value to the desired type
             // used often when using maps with generic types
             Text(((data['question_index'] as int) + 1).toString()),
-            Column(
-              children: [
-                Text(data['question'] as String),
-                const SizedBox(height: 5,),
-                Text(data['user_answer'] as String),
-                Text(data['answer'] as String),
-              ],
+            Expanded( 
+              // without Expanded, the row will try to take up to infinite space
+              child: Column(
+                children: [
+                  Text(data['question'] as String),
+                  const SizedBox(height: 5,),
+                  Text(data['user_answer'] as String),
+                  Text(data['correct_answer'] as String),
+                ],
+              ),
             ),
           ],
         );

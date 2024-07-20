@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:adv_basics/data/questions.dart';
 import 'package:adv_basics/questions_summary.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ResultsScreen extends StatelessWidget {
@@ -18,7 +21,7 @@ class ResultsScreen extends StatelessWidget {
         // adding a map on the fly
         'question_index': i,
         'question': questions[i].text,
-        'answer': questions[i].answers[0],
+        'correct_answer': questions[i].answers[0],
         'user_answer': choosenAnswers[i],
       });
     }
@@ -27,6 +30,13 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummary();
+    final numTotalQuestions = questions.length;
+    final numCorrectAnswers = summaryData.where((data) {
+      // returns true if the item must be kept in the answer
+      return data['correct_answer'] == data['user_answer'];
+    }).length;
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -34,12 +44,12 @@ class ResultsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('You answered X out Y questions correctly!'),
+            Text('You answered $numCorrectAnswers out $numTotalQuestions questions correctly!'),
             const SizedBox(
               height: 30,
             ),
             QuestionsSummary(
-              summaryData: getSummary(),
+              summaryData: summaryData,
             ),
             TextButton(
               onPressed: () {},
