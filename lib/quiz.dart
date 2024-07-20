@@ -14,22 +14,12 @@ class QuizApp extends StatefulWidget {
 }
 
 class _QuizAppState extends State<QuizApp> {
-  Widget? activeScreen;
-  // the selected answers are stored in a list here
-  // so that they can be managed when the quiz is finished
-  final List<String> selectedAnswers = [];
-
-  @override
-  void initState() {
-    activeScreen = StartScreen(switchScreen);
-    super.initState();
-  }
+  List<String> selectedAnswers = [];
+  var activeScreen = 'start-screen';
 
   void switchScreen() {
     setState(() {
-      activeScreen = QuestionsScreen(
-        onSelectAnswer: chooseAnswer,
-      );
+      activeScreen = 'questions-screen';
     });
   }
 
@@ -38,26 +28,49 @@ class _QuizAppState extends State<QuizApp> {
 
     if (selectedAnswers.length == questions.length) {
       setState(() {
-        activeScreen = ResultsScreen(
-          choosenAnswers: selectedAnswers,
-        );
+        activeScreen = 'results-screen';
       });
     }
   }
 
+  void restartQuiz() {
+    setState(() {
+      selectedAnswers = [];
+      activeScreen = 'questions-screen';
+    });
+  }
+
   @override
   Widget build(context) {
+    Widget screenWidget = StartScreen(switchScreen);
+
+    if (activeScreen == 'questions-screen') {
+      screenWidget = QuestionsScreen(
+        onSelectAnswer: chooseAnswer,
+      );
+    }
+
+    if (activeScreen == 'results-screen') {
+      screenWidget = ResultsScreen(
+        choosenAnswers: selectedAnswers,
+        onRestart: restartQuiz,
+      );
+    }
+
     return MaterialApp(
       home: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.deepPurple, Colors.purple],
+              colors: [
+                Color.fromARGB(255, 78, 13, 151),
+                Color.fromARGB(255, 107, 15, 168),
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
-          child: activeScreen,
+          child: screenWidget,
         ),
       ),
     );

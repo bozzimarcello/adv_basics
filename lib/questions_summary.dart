@@ -12,7 +12,7 @@ class QuestionsSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 400,
       child: SingleChildScrollView(
         child: Column(
           children: summaryData.map((data) {
@@ -22,10 +22,13 @@ class QuestionsSummary extends StatelessWidget {
                 // the "as" operator is used to cast the value to the desired type
                 // used often when using maps with generic types
                 Container(
-                  margin: const EdgeInsets.all(10.0),
-                  color: data['correct_answer'] == data['user_answer'] 
-                  ? Colors.green 
-                  : Colors.amber,
+                  margin: const EdgeInsets.only(right: 10, left: 10),
+                  decoration: BoxDecoration(
+                    color: data['correct_answer'] == data['user_answer']
+                        ? Colors.green
+                        : Colors.amber,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
                   width: 25,
                   height: 25,
                   alignment: Alignment.center,

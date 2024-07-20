@@ -7,8 +7,10 @@ class ResultsScreen extends StatelessWidget {
   const ResultsScreen({
     super.key,
     required this.choosenAnswers,
+    required this.onRestart,
   });
 
+  final void Function() onRestart;
   final List<String> choosenAnswers;
 
   List<Map<String, Object>> getSummary() {
@@ -45,9 +47,10 @@ class ResultsScreen extends StatelessWidget {
             Text(
               'You answered $numCorrectAnswers out $numTotalQuestions questions correctly!',
               style: GoogleFonts.lato(
-                fontSize: 24,
+                fontSize: 20,
                 color: const Color.fromARGB(255, 237, 223, 252),
               ),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(
               height: 30,
@@ -55,18 +58,26 @@ class ResultsScreen extends StatelessWidget {
             QuestionsSummary(
               summaryData: summaryData,
             ),
-            TextButton(
-              onPressed: () {},
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.refresh, color: Colors.white),
-                  SizedBox(width: 5),
-                  Text(
-                    'Restart Quiz',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
+            // TextButton(
+            //   onPressed: () {},
+            //   child: const Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Icon(Icons.refresh, color: Colors.white),
+            //       SizedBox(width: 5),
+            //       Text(
+            //         'Restart Quiz',
+            //         style: TextStyle(color: Colors.white),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            TextButton.icon(
+              onPressed: onRestart,
+              label: const Text('Restart Quiz'),
+              icon: const Icon(Icons.refresh),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
               ),
             ),
           ],
